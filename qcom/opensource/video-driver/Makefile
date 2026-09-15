@@ -6,12 +6,10 @@ KBUILD_OPTIONS += KBUILD_EXTRA_SYMBOLS=$(M)/../mmrm-driver/Module.symvers
 
 all: modules
 
+# msm_video/driver and video/driver are tracked symlinks to driver/, so each
+# module gets its own object directory without writing to the source tree.
 modules:
-	ln -sf $(VIDEO_ROOT)/driver $(VIDEO_ROOT)/msm_video/driver
-	ln -sf $(VIDEO_ROOT)/driver $(VIDEO_ROOT)/video/driver
 	$(MAKE) -C $(KERNEL_SRC) M=$(M) modules $(KBUILD_OPTIONS)
-	rm $(VIDEO_ROOT)/msm_video/driver
-	rm $(VIDEO_ROOT)/video/driver
 
 modules_install:
 	$(MAKE) INSTALL_MOD_STRIP=1 -C $(KERNEL_SRC) M=$(M) modules_install
