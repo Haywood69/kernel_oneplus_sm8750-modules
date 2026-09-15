@@ -78,6 +78,10 @@ LINUXINCLUDE +=                                 \
 	$(addprefix -I,$(cam_include_dirs))         \
 	-I$(CAMERA_KERNEL_ROOT)/include/uapi/camera \
 	-I$(CAMERA_KERNEL_ROOT)/
+# cam_generated_h, written by the Makefile outside the read-only source tree
+ifneq ($(CAMERA_GEN_DIR),)
+LINUXINCLUDE += -I$(CAMERA_GEN_DIR)
+endif
 # Optional include directories
 SYNXVENDORDIR=$(CAMERA_KERNEL_ROOT)/../synx-kernel
 ccflags-$(CONFIG_MSM_GLOBAL_SYNX) += -I$(KERNEL_ROOT)/drivers/media/platform/msm/synx
